@@ -1,3 +1,5 @@
+package model;
+
 public class Location {
 
     private String section;
