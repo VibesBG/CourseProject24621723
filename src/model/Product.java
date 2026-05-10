@@ -22,6 +22,42 @@ public class Product {
         this.comment = b.comment;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getManufacturerName() {
+        return manufacturerName;
+    }
+
+    public String getMeasureUnit() {
+        return measureUnit;
+    }
+
+    public double getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public LocalDate getExpireDate() {
+        return expireDate;
+    }
+
+    public LocalDate getDateOfEnter() {
+        return dateOfEnter;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
     public void setQuantity(double quantity) {
         if (quantity < 0) throw new IllegalArgumentException("Quantity cannot be negative.");
         this.quantity = quantity;
