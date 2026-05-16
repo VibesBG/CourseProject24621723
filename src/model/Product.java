@@ -52,9 +52,7 @@ public class Product {
         return quantity;
     }
 
-    public String getComment() {
-        return comment;
-    }
+    public String getComment() { return comment; }
 
     public Location getLocation() {
         return location;

@@ -1,7 +1,5 @@
 package model;
 
-import operations.StorageOperation;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,7 +11,7 @@ public class Storage {
     private Storage() {
     }
 
-    private static class Holder {
+    private static class Holder { //why Holder https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
         private static final Storage INSTANCE = new Storage();
     }
 
@@ -23,10 +21,6 @@ public class Storage {
 
     private final Map<String, List<Product>> stock = new LinkedHashMap<>();
     private final List<LogEntry> log = new ArrayList<>();
-
-    public String execute(StorageOperation operation) {
-        return operation.execute(stock, log);
-    }
 
     public Map<String, List<Product>> getStock() {
         return stock;
