@@ -1,13 +1,15 @@
 package operations;
 
 import model.LogEntry;
-import model.Product;
+import model.Storage;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LogOperation implements StorageOperation {
+
     private final LocalDate from;
     private final LocalDate to;
 
@@ -17,7 +19,19 @@ public class LogOperation implements StorageOperation {
     }
 
     @Override
-    public String execute(Map<String, List<Product>> stock, List<LogEntry> log) {
-        return "";
+    public String execute(Storage storage) {
+        List<LogEntry> filtered = storage.getLogEntries().stream()
+                .filter(e -> !e.getDate().isBefore(from) && !e.getDate().isAfter(to))
+                .sorted(Comparator.comparing(LogEntry::getDate))
+                .toList();
+
+        if (filtered.isEmpty())
+            return "No changes recorded between " + from + " and " + to + ".";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Log from %s to %s:%n", from, to));
+        sb.append("-".repeat(90)).append("\n");
+        filtered.forEach(e -> sb.append(e).append("\n"));
+        return sb.toString();
     }
 }
