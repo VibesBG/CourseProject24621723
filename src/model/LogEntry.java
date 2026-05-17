@@ -8,8 +8,17 @@ import java.time.LocalDate;
  */
 public class LogEntry {
 
-    /** Types of operations */
-    public enum Type {ADD, REMOVE, CLEAN}
+    /**
+     * Types of operations that can be logged
+     */
+    public enum Type {
+        /** Product batch was added to the storage */
+        ADD,
+        /** Product quantity was taken out of the storage */
+        REMOVE,
+        /** Product batch was removed because it expired or was expiring soon */
+        CLEAN
+    }
 
     /** Date of log */
     private final LocalDate date;

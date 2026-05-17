@@ -33,12 +33,12 @@ public class Product {
     /** Optional comment or note */
     private String comment;
 
-    /** Location (section, rack, slot). */
+    /** Location (section, rack, slot) */
     private Location location;
 
     /**
-     * Private constructor that initializes the product using a Builder object.
-     * * @param b the Builder instance containing the field values
+     * Private constructor that initializes the product using a Builder object
+     * @param b the Builder instance containing the field values
      */
     private Product(Builder b) {
         this.name = b.name;
@@ -53,7 +53,7 @@ public class Product {
 
     /**
      * Gets the products name
-     * * @return the products name
+     * @return the products name
      */
     public String getName() {
         return name;
@@ -61,7 +61,7 @@ public class Product {
 
     /**
      * Gets the manufacturer name
-     * * @return the manufacturer name
+     * @return the manufacturer name
      */
     public String getManufacturerName() {
         return manufacturerName;
@@ -69,7 +69,7 @@ public class Product {
 
     /**
      * Gets the unit of measurement
-     * * @return the measure unit
+     * @return the measure unit
      */
     public MeasureUnit getMeasureUnit() {
         return measureUnit;
@@ -77,7 +77,7 @@ public class Product {
 
     /**
      * Gets the price per single unit
-     * * @return the price
+     * @return the price
      */
     public double getPricePerUnit() {
         return pricePerUnit;
@@ -85,7 +85,7 @@ public class Product {
 
     /**
      * Gets the expiration date of the batch
-     * * @return the expiry date
+     * @return the expiry date
      */
     public LocalDate getExpireDate() {
         return expireDate;
@@ -93,7 +93,7 @@ public class Product {
 
     /**
      * Gets the date when the product entered the storage
-     * * @return the arrival date
+     * @return the arrival date
      */
     public LocalDate getDateOfEnter() {
         return dateOfEnter;
@@ -101,7 +101,7 @@ public class Product {
 
     /**
      * Gets the quantity of the product
-     * * @return the available quantity
+     * @return the available quantity
      */
     public double getQuantity() {
         return quantity;
@@ -109,7 +109,7 @@ public class Product {
 
     /**
      * Gets the comment or note
-     * * @return the comment string
+     * @return the comment string
      */
     public String getComment() {
         return comment;
@@ -117,7 +117,7 @@ public class Product {
 
     /**
      * Gets the location
-     * * @return the Location object
+     * @return the Location object
      */
     public Location getLocation() {
         return location;
@@ -125,8 +125,8 @@ public class Product {
 
     /**
      * Sets the product quantity
-     * * @param quantity the new quantity
-     * @throws IllegalArgumentException if quantity is < 0
+     * @param quantity the new quantity
+     * @throws IllegalArgumentException if quantity is less than 0
      */
     public void setQuantity(double quantity) {
         if (quantity < 0) throw new IllegalArgumentException("Quantity cannot be negative.");
@@ -134,8 +134,8 @@ public class Product {
     }
 
     /**
-     * Sets a comment for this product.
-     * * @param comment the text of comment
+     * Sets a comment for this product
+     * @param comment the text of comment
      */
     public void setComment(String comment) {
         this.comment = comment == null ? "" : comment;
@@ -143,7 +143,7 @@ public class Product {
 
     /**
      * Sets a location to this product
-     * * @param location the new location
+     * @param location the new location
      * @throws IllegalArgumentException if location is null
      */
     public void setLocation(Location location) {
@@ -153,15 +153,15 @@ public class Product {
 
     /**
      * Checks if expiration date is before the current date
-     * * @return true if the product is expired and false if it's not
+     * @return true if the product is expired and false if it's not
      */
     public boolean isExpired() {
         return expireDate.isBefore(LocalDate.now());
     }
 
     /**
-     * Checks if the product expires after a number of days from today
-     * * @param days the number of days for the check
+     * Checks if the product expires within a given number of days from today
+     * @param days the number of days for the check
      * @return true if it expires soon or is already expired and false if it doesn't
      */
     public boolean expiresSoon(int days) {
@@ -170,7 +170,7 @@ public class Product {
 
     /**
      * Converts the product object to string
-     * * @return a string of the product
+     * @return a string representation of the product
      */
     @Override
     public String toString() {
@@ -213,7 +213,7 @@ public class Product {
 
         /**
          * Constructor for the Builder, requiring a product name that is not empty
-         * * @param name the name of the product
+         * @param name the name of the product
          * @throws IllegalArgumentException if the name is null or blank
          */
         public Builder(String name) {
@@ -224,7 +224,7 @@ public class Product {
 
         /**
          * Sets the manufacturer name for the product
-         * * @param manufacturerName the name of the manufacturer
+         * @param manufacturerName the name of the manufacturer
          * @return the current Builder instance
          */
         public Builder manufacturer(String manufacturerName) {
@@ -234,7 +234,7 @@ public class Product {
 
         /**
          * Sets the measure unit by parsing a raw string into a MeasureUnit enum
-         * * @param measureUnit the string representation of the unit
+         * @param measureUnit the string representation of the unit
          * @return the current Builder instance
          * @throws IllegalArgumentException if the unit string is null
          */
@@ -247,7 +247,7 @@ public class Product {
 
         /**
          * Sets the unit price of the product
-         * * @param price the price value
+         * @param price the price value
          * @return the current Builder instance
          * @throws IllegalArgumentException if the price is negative
          */
@@ -259,7 +259,7 @@ public class Product {
 
         /**
          * Sets the expiration date of the product batch
-         * * @param date the expiration date
+         * @param date the expiration date
          * @return the current Builder instance
          * @throws IllegalArgumentException if the date is null
          */
@@ -271,7 +271,7 @@ public class Product {
 
         /**
          * Sets the arrival date of the product into the warehouse
-         * * @param date the entry date
+         * @param date the entry date
          * @return the current Builder instance
          * @throws IllegalArgumentException if the date is null
          */
@@ -283,7 +283,7 @@ public class Product {
 
         /**
          * Sets the initial quantity of the product batch
-         * * @param quantity the quantity value
+         * @param quantity the quantity value
          * @return the current Builder instance
          * @throws IllegalArgumentException if the quantity is negative
          */
@@ -295,7 +295,7 @@ public class Product {
 
         /**
          * Sets a comment or note for the product
-         * * @param comment the text of the comment or note
+         * @param comment the text of the comment or note
          * @return the current Builder instance
          */
         public Builder comment(String comment) {
@@ -305,7 +305,7 @@ public class Product {
 
         /**
          * Validates and constructs the final Product instance
-         * * @return a fully constructed Product object
+         * @return a fully constructed Product object
          * @throws IllegalStateException if the arrival date is after the expiration date
          */
         public Product build() {
