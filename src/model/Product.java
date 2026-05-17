@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Product {
     private final String name;
     private final String manufacturerName;
-    private final String measureUnit;
+    private final MeasureUnit measureUnit;
     private final double pricePerUnit;
     private final LocalDate expireDate;
     private final LocalDate dateOfEnter;
@@ -32,9 +32,7 @@ public class Product {
         return manufacturerName;
     }
 
-    public String getMeasureUnit() {
-        return measureUnit;
-    }
+    public MeasureUnit getMeasureUnit() { return measureUnit; }
 
     public double getPricePerUnit() {
         return pricePerUnit;
@@ -94,7 +92,7 @@ public class Product {
         private final String name;
 
         private String manufacturerName = "";
-        private String measureUnit = "бр";
+        private MeasureUnit measureUnit = MeasureUnit.KG;
         private double pricePerUnit = 0.0;
         private LocalDate expireDate = LocalDate.now().plusYears(1);
         private LocalDate dateOfEnter = LocalDate.now();
@@ -113,9 +111,9 @@ public class Product {
         }
 
         public Builder unit(String measureUnit) {
-            if (measureUnit == null || measureUnit.isBlank())
+            if (measureUnit == null)
                 throw new IllegalArgumentException("Unit cannot be empty.");
-            this.measureUnit = measureUnit;
+            this.measureUnit = MeasureUnit.fromString(measureUnit);
             return this;
         }
 

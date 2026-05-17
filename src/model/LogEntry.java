@@ -10,13 +10,13 @@ public class LogEntry {
     private final Type type;
     private final String productName;
     private final double quantity;
-    private final String unit;
+    private final MeasureUnit unit;
     private final Location location;
     private final LocalDate expiryDate;
     private final String note;
 
     public LogEntry(LocalDate date, Type type, String productName,
-                    double quantity, String unit,
+                    double quantity, MeasureUnit unit,
                     Location location, LocalDate expiryDate, String note) {
         this.date = date;
         this.type = type;
@@ -44,9 +44,7 @@ public class LogEntry {
         return quantity;
     }
 
-    public String getUnit() {
-        return unit;
-    }
+    public MeasureUnit getUnit() { return unit; }
 
     public Location getLocation() {
         return location;
