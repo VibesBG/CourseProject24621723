@@ -2,7 +2,27 @@ package validators;
 
 import java.time.LocalDate;
 
+/**
+ * Helper class with a single static method that validates product fields
+ */
 public class ProductValidator {
+
+    /**
+     * Utility class, not meant to be instantiated
+     */
+    private ProductValidator() {
+    }
+
+    /**
+     * Validates all required product fields
+     * @param name product name
+     * @param unit measure unit string
+     * @param price price per unit
+     * @param quantity quantity
+     * @param arrival arrival date
+     * @param expiry expiration date
+     * @throws IllegalArgumentException if any value is invalid
+     */
     public static void validate(String name, String unit,
                                 double price, double quantity,
                                 LocalDate arrival, LocalDate expiry) {
