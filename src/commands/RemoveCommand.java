@@ -68,7 +68,11 @@ public class RemoveCommand implements Command {
         double available = e.getAvailable();
         String unit = e.getUnit();
 
-        System.out.printf("Only %.2f %s of '%s' available.%n", available, unit, name);
+        System.out.printf("Insufficient stock for '%s'. Available batches:%n", name);
+        storage.getStock().get(name).forEach(p ->
+                System.out.printf("  %.2f %s  expiry: %s  loc: %s%n",
+                        p.getQuantity(), p.getMeasureUnit(), p.getExpireDate(), p.getLocation()));
+        System.out.printf("Total available: %.2f %s%n", available, unit);
 
         System.out.print("Remove all available stock? (yes/no): ");
         String answer = scanner.nextLine().trim().toLowerCase();
