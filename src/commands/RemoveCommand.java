@@ -5,17 +5,35 @@ import operations.RemoveOperation;
 
 import java.util.Scanner;
 
-public class RemoveCommand {
+/**
+ * Interactive command that removes a given quantity of a product
+ * If the requested quantity is more than available, offers to remove what is left
+ */
+public class RemoveCommand implements Command {
 
+    /** The storage to remove from */
     private final Storage storage;
+
+    /** Scanner used to read user input */
     private final Scanner scanner;
 
+    /**
+     * Constructor
+     * @param storage the storage to remove from
+     * @param scanner the scanner for user input
+     */
     public RemoveCommand(Storage storage, Scanner scanner) {
         this.storage = storage;
         this.scanner = scanner;
     }
 
-    public String execute() {
+    /**
+     * Runs the interactive remove command
+     * @param args ignored, input is read from the scanner
+     * @return result message describing what was removed
+     */
+    @Override
+    public String execute(String[] args) {
         System.out.print("Product name: ");
         String name = scanner.nextLine().trim();
         if (name.isBlank()) return "Error: name cannot be empty.";
@@ -39,6 +57,13 @@ public class RemoveCommand {
         }
     }
 
+    /**
+     * Helper used when the user asks to remove more than is available
+     * Offers to remove only the available quantity instead
+     * @param e the InsufficientStockException with available info
+     * @param name product name
+     * @return result message or cancellation message
+     */
     private String handleInsufficientStock(exceptions.InsufficientStockException e, String name) {
         double available = e.getAvailable();
         String unit = e.getUnit();

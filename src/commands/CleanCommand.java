@@ -7,16 +7,36 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class CleanCommand {
+/**
+ * Interactive command that cleans expired or soon-to-expire products
+ * Can also calculate the financial loss for one product over a period
+ */
+public class CleanCommand implements Command {
 
+    /** The storage to clean */
     private final Storage storage;
+
+    /** Scanner used to read user input */
     private final Scanner scanner;
 
+    /**
+     * Constructor
+     * @param storage the storage to clean
+     * @param scanner the scanner for user input
+     */
     public CleanCommand(Storage storage, Scanner scanner) {
         this.storage = storage;
         this.scanner = scanner;
     }
 
+    /**
+     * Runs the clean command
+     * If an integer argument is provided it is used as the day threshold
+     * Then asks the user whether to also calculate losses
+     * @param args optional number of days
+     * @return result message with the cleaned products and optional loss report
+     */
+    @Override
     public String execute(String[] args) {
         int days = 0;
         if (args.length >= 1) {

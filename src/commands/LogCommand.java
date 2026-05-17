@@ -6,14 +6,28 @@ import validators.DateValidator;
 
 import java.time.LocalDate;
 
-public class LogCommand {
+/**
+ * Command that prints the log of all changes between two dates
+ */
+public class LogCommand implements Command {
 
+    /** The storage to read the log from */
     private final Storage storage;
 
+    /**
+     * Constructor
+     * @param storage the storage to read from
+     */
     public LogCommand(Storage storage) {
         this.storage = storage;
     }
 
+    /**
+     * Parses the date range arguments and runs a LogOperation
+     * @param args expects two dates in YYYY-MM-DD format
+     * @return the formatted log or an error message
+     */
+    @Override
     public String execute(String[] args) {
         if (args.length < 2)
             return "Usage: log <from> <to>  (YYYY-MM-DD)";

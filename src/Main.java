@@ -1,7 +1,15 @@
 import commands.CommandParser;
 import java.util.Scanner;
 
+/**
+ * Entry point of the Storage Management System
+ * Starts the command loop and optionally opens a file passed as program argument
+ */
 public class Main {
+    /**
+     * Program entry point
+     * @param args optional, first element is the path of a file to open at start
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CommandParser parser  = new CommandParser(scanner);

@@ -7,8 +7,26 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Handles saving and loading of the storage to and from a text file
+ * The file format is line-based, fields separated by '|'
+ * Each line starts with PRODUCT or LOG to mark its kind
+ */
 public class FileManager {
 
+    /**
+     * Utility class, not meant to be instantiated
+     */
+    private FileManager() {
+    }
+
+    /**
+     * Saves the storage contents to the given file
+     * Writes all products first, then the log entries
+     * @param storage the storage to write
+     * @param filePath the path of the file to write to
+     * @throws IOException if a write error occurs
+     */
     public static void save(Storage storage, String filePath) throws IOException {
         try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
             for (List<Product> list : storage.getStock().values()) {
@@ -24,6 +42,14 @@ public class FileManager {
         }
     }
 
+    /**
+     * Loads the storage contents from the given file
+     * If the file does not exist, the storage is just cleared
+     * @param storage the storage to fill
+     * @param filePath path of the file to read
+     * @throws IOException if a read error occurs
+     * @throws IllegalStateException if a line cannot be parsed
+     */
     public static void load(Storage storage, String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -57,6 +83,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Builds the file line for a Product
+     * @param p product to serialize
+     * @return the formatted line
+     */
     private static String productLine(Product p) {
         return String.join("|",
                 "PRODUCT",
@@ -72,6 +103,11 @@ public class FileManager {
         );
     }
 
+    /**
+     * Builds the file line for a LogEntry
+     * @param e log entry to serialize
+     * @return the formatted line
+     */
     private static String logLine(LogEntry e) {
         return String.join("|",
                 "LOG",
@@ -86,6 +122,11 @@ public class FileManager {
         );
     }
 
+    /**
+     * Parses a PRODUCT line and adds the product to the storage
+     * @param storage the storage to add to
+     * @param line the file line to parse
+     */
     private static void parseProduct(Storage storage, String line) {
         String[] p = line.split("\\|", -1);
         if (p.length < 10)
@@ -106,6 +147,11 @@ public class FileManager {
         addOp.execute(storage);
     }
 
+    /**
+     * Parses a LOG line and appends it to the storage log
+     * @param storage the storage whose log will be filled
+     * @param line the file line to parse
+     */
     private static void parseLog(Storage storage, String line) {
         String[] p = line.split("\\|", -1);
         if (p.length < 9)
@@ -123,11 +169,21 @@ public class FileManager {
         ));
     }
 
+    /**
+     * Escapes the '|' and '\' characters so they don't break the format
+     * @param s string to escape
+     * @return escaped string
+     */
     private static String esc(String s) {
         if (s == null) return "";
         return s.replace("\\", "\\\\").replace("|", "\\|");
     }
 
+    /**
+     * Reverses the escape operation
+     * @param s string to unescape
+     * @return unescaped string
+     */
     private static String unesc(String s) {
         if (s == null) return "";
         return s.replace("\\|", "|").replace("\\\\", "\\");
