@@ -6,6 +6,13 @@ import java.util.Scanner;
  * Starts the command loop and optionally opens a file passed as program argument
  */
 public class Main {
+
+    /**
+     * Utility class, not meant to be instantiated
+     */
+    private Main() {
+    }
+
     /**
      * Program entry point
      * @param args optional, first element is the path of a file to open at start
