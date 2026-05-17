@@ -59,13 +59,12 @@ public class CleanOperation implements StorageOperation {
                         p.getLocation(), p.getExpireDate(),
                         "Cleaned – expiring within " + daysThreshold + " days"));
 
-                if (lossProductName != null
-                        && p.getName().equalsIgnoreCase(lossProductName)
+                if (p.getName().equalsIgnoreCase(lossProductName)
                         && lossFrom != null
                         && !p.getExpireDate().isBefore(lossFrom)
                         && !p.getExpireDate().isAfter(lossTo)) {
                     totalLoss += p.getQuantity() * lossPrice;
-                    lossUnit = p.getMeasureUnit();
+                    lossUnit = p.getMeasureUnit().name();
                 }
 
                 it.remove();

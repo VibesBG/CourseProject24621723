@@ -28,7 +28,7 @@ public class RemoveOperation implements StorageOperation {
         double available = list.stream().mapToDouble(Product::getQuantity).sum();
 
         if (quantityToRemove > available) {
-            throw new exceptions.InsufficientStockException(productName, available, list.getFirst().getMeasureUnit());
+            throw new exceptions.InsufficientStockException(productName, available, list.getFirst().getMeasureUnit().name());
         }
 
         list.sort(Comparator.comparing(Product::getExpireDate));

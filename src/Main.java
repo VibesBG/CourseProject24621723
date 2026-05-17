@@ -2,12 +2,11 @@ import commands.CommandParser;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CommandParser parser  = new CommandParser(scanner);
 
-        System.out.println("=== Warehouse Management System ===");
+        System.out.println("=== Storage Management System ===");
         System.out.println("Type 'help' for a list of commands.");
         System.out.println();
 
