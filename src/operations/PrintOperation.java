@@ -7,8 +7,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Operation that prints all products in a table
+ * Quantities of all batches of the same product are summed
+ * Unique locations are listed in one column
+ */
 public class PrintOperation implements StorageOperation {
 
+    /**
+     * Default constructor
+     */
+    public PrintOperation() {
+    }
+
+    /**
+     * Builds a table with the current state of the warehouse
+     * @param storage the storage to read from
+     * @return formatted table or a message that the warehouse is empty
+     */
     @Override
     public String execute(Storage storage) {
         if (storage.getStock().isEmpty()) return "The warehouse is empty.";

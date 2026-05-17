@@ -9,18 +9,43 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Operation that removes products which are expired or expire within N days
+ * Optionally calculates the total money lost for one product over a period
+ */
 public class CleanOperation implements StorageOperation {
 
+    /** Number of days from today within which products are considered to expire soon */
     private final int daysThreshold;
+
+    /** Product name to calculate losses for, null if not requested */
     private final String lossProductName;
+
+    /** Price per unit used in the loss calculation */
     private final double lossPrice;
+
+    /** Start of the loss period, null if not requested */
     private final LocalDate lossFrom;
+
+    /** End of the loss period, null if not requested */
     private final LocalDate lossTo;
 
+    /**
+     * Constructor for plain cleaning without loss calculation
+     * @param daysThreshold expiry threshold in days
+     */
     public CleanOperation(int daysThreshold) {
         this(daysThreshold, null, 0.0, null, null);
     }
 
+    /**
+     * Constructor with loss calculation
+     * @param daysThreshold expiry threshold in days
+     * @param lossProductName product to calculate losses for
+     * @param lossPrice price per unit
+     * @param lossFrom start of the loss period
+     * @param lossTo end of the loss period
+     */
     public CleanOperation(int daysThreshold, String lossProductName,
                           double lossPrice, LocalDate lossFrom, LocalDate lossTo) {
         this.daysThreshold = daysThreshold;
@@ -30,6 +55,12 @@ public class CleanOperation implements StorageOperation {
         this.lossTo = lossTo;
     }
 
+    /**
+     * Goes through the stock and removes expiring batches
+     * Writes a CLEAN log entry for each removed batch and builds a report
+     * @param storage the storage to clean
+     * @return formatted report with the cleaned products and optional loss summary
+     */
     @Override
     public String execute(Storage storage) {
         StringBuilder sb = new StringBuilder();

@@ -9,16 +9,36 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Operation that removes a quantity of a product from the storage
+ * Batches with the closest expiry date are removed first
+ * Throws if the product doesn't exist or if the quantity is more than available
+ */
 public class RemoveOperation implements StorageOperation {
 
+    /** Name of the product to remove */
     private final String productName;
+
+    /** Total quantity to remove */
     private final double quantityToRemove;
 
+    /**
+     * Constructor
+     * @param productName product name
+     * @param quantityToRemove quantity to remove
+     */
     public RemoveOperation(String productName, double quantityToRemove) {
         this.productName = productName;
         this.quantityToRemove = quantityToRemove;
     }
 
+    /**
+     * Removes the requested quantity and writes log entries
+     * @param storage the storage to remove from
+     * @return formatted message listing the batches that were touched
+     * @throws exceptions.ProductNotFoundException if the product does not exist
+     * @throws exceptions.InsufficientStockException if there is not enough stock
+     */
     @Override
     public String execute(Storage storage) {
         List<Product> list = storage.getStock().get(productName);
